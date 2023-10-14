@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useJwt} from "../UserGlobalProvider";
-
 import backendService from "../Services/BackendService";
 import {Badge, Button, Container} from "react-bootstrap";
 import NavBar from "../NavBar";
 import SearchBar from "../SearchBar";
-import AssignTrainerModal from "../AssignTrainerModal";
 import CreateTrainerModal from "../CreateTrainerModal";
 import {PencilFill} from "react-bootstrap-icons";
 import EditTrainerModal from "../EditTrainerModal";

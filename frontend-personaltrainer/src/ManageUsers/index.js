@@ -2,10 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {useJwt} from "../UserGlobalProvider";
 import {useNavigate} from "react-router-dom";
 import backendService from "../Services/BackendService";
-import {Badge, Button, Container, Dropdown} from "react-bootstrap";
+import {Badge, Button, Container} from "react-bootstrap";
 import NavBar from "../NavBar";
 import SearchBar from "../SearchBar";
-import CreateWorkoutModal from "../CreateWorkoutModal";
 import AssignTrainerModal from "../AssignTrainerModal";
 
 const ManageUsers = () => {

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Container, OverlayTrigger, Table, Tooltip} from "react-bootstrap";
+import {Button, Container, OverlayTrigger, Tooltip} from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 import NavBar from "../NavBar";
 import {useJwt} from "../UserGlobalProvider";

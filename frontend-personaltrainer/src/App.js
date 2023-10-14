@@ -18,7 +18,6 @@ import PrivateRoute from "./PrivateRoute";
 import TrainerDashboard from "./TrainerDashboard";
 import TrainerUserProfile from "./TrainerUserProfile";
 import NoAccess from "./NoAccess";
-import {Search} from "react-bootstrap-icons";
 import SearchBar from "./SearchBar";
 import AdminHome from "./AdminHome";
 import ManageSuccessStories from "./ManageSuccessStories";

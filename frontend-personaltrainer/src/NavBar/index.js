@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
+import {Alert, Container, Nav, Navbar} from "react-bootstrap";
 import {useLocation, useNavigate} from "react-router-dom";
-import {Facebook, Instagram, Snapchat, Youtube} from "react-bootstrap-icons";
 import {useJwt} from "../UserGlobalProvider";
 import jwtDecode from "jwt-decode";
-import backendService from "../Services/BackendService";
+
 import Cookies from "js-cookie";
 
 

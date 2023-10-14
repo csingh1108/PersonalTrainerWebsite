@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {Button, Container} from "react-bootstrap";
 import NavBar from "../NavBar";
 import {useJwt} from "../UserGlobalProvider";
-import Cookies from "js-cookie";
 import backendService from "../Services/BackendService";
 import {useNavigate} from "react-router-dom";
 import SearchBar from "../SearchBar";
