@@ -1,0 +1,273 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.overlay {;
+  background-color: rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+}
+
+.backgroundStyles {
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: -1;
+  color: white;
+  overflow-y: auto;
+}
+
+.textContainerStyles {
+  background-color: rgba(1, 1, 1, .6);
+  padding: 2em;
+  border-radius: 8px;
+  width: 100%;
+  text-align:Center;
+}
+
+.textContainerStyles2 {
+  background-color: rgba(0, 0, 0, .4);
+  padding: 2em;
+  border-radius: 8px;
+  width: 100%;
+  text-align:Center;
+  margin-top: 4em;
+}
+
+.profile-image-container {
+  position: relative;
+  overflow: hidden;
+  width: 275px;
+  height: 275px;
+  border-radius: 100% ;
+  border: 2px solid black;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.user-table th,
+.user-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.user-table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.user-table td button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.user-table td button:hover {
+  background-color: #0056b3;
+}
+
+
+
+@media screen and (max-width: 1200px){
+  .profile-image-container{
+    max-width: 80%;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .profile-image-small-screen{
+    display: flex;
+    justify-content: center;
+  }
+  .profile-info-container{
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-image-user {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  line-height: 200px;
+  text-align: center;
+  border: 2px black;
+}
+
+.noteContainer {
+  margin-top: 2em;
+  border: 1px solid white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.workoutdetails-main{
+  height: 300px;
+}
+
+.program-image {
+  width: 500px;
+  height: 300px;
+  border-radius: 10%;
+}
+
+.success-story-card {
+  width: 100%;
+  max-width: 1500px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0 auto 20px;
+  min-height: 300px;
+}
+
+.checkbox-column {
+  flex: 0 0 30px;
+  margin-left: 50px;
+  text-align: center;
+  margin-right: 1em;
+}
+
+.checkbox-column input[type="checkbox"] {
+  width: 35px;
+  height: 35px;
+  margin-bottom: 10px;
+}
+
+.success-story-card-admin {
+  width: 100%;
+  max-width: 900px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0 auto 20px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.image-container {
+  flex: 1;
+  padding: 20px;
+}
+
+.story-container {
+  flex: 2;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.popup-container{
+  width: 100%;
+  height: 100vh;
+  background:#333333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-height {
+  height: 52vh !important;
+  width: 50vw !important;
+}
+
+.square {
+  width: 300px;
+  height: 300px;
+  background-color: white;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+}
+
+.square:hover {
+  background-color: #f0f0f0;
+}
+
+.square .content {
+  text-align: center;
+  color: black;
+}
+
+.square img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.success-story {
+  font-size: 20px;
+  line-height: 1.5;
+  padding: 1em;
+}
+
+.profileCardStyle {
+  border: 2px solid black;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.popup {
+  width:400px;
+  background: white;
+  border-radius: 6px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 0 30px 30px;
+  color: #333;
+}
+
+.popup-image {
+  max-width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+
+
+
+
+
+
+
+
+

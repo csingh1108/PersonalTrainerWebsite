@@ -1,0 +1,57 @@
+
+@keyframes glideInFromBottom {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.glide-in-bottom {
+    animation: glideInFromBottom 1s ease-in-out;
+}
+
+@keyframes glideInFromLeft {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(200%);
+        opacity: 1;
+    }
+}
+
+.glide-in-left {
+    animation: glideInFromLeft 2s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes glideInFromRight {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(-200%);
+        opacity: 1;
+    }
+}
+
+.glide-in-right {
+    animation: glideInFromRight 2s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.off-screen-right {
+    right: -200%;
+    position: absolute;
+}
+
+.off-screen-left {
+    left: -200%;
+    position: absolute;
+}
