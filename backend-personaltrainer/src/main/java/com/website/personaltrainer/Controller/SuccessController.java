@@ -25,6 +25,7 @@ public class SuccessController {
         this.successService = successService;
     }
 
+    // Create a success story (requires admin role)
     @PostMapping("/create")
     public ResponseEntity<?> createSuccessStory(@AuthenticationPrincipal User user, @RequestBody SuccessStory successStory) {
         if (AuthorityUtil.hasRole(AuthorityEnums.ROLE_ADMIN.name(), user)) {
@@ -39,18 +40,21 @@ public class SuccessController {
         }
     }
 
+    // Get all success stories
     @GetMapping("/all")
     public ResponseEntity<?> getAllSuccessStories() {
         List<SuccessStory> successStories = successService.getAllSuccessStories();
         return ResponseEntity.ok(successStories);
     }
 
+    // Get all enabled success stories
     @GetMapping("/all/enabled")
     public ResponseEntity<?> getAllEnabledSuccessStories() {
         List<SuccessStory> successStories = successService.getAllEnabledSuccessStories();
         return ResponseEntity.ok(successStories);
     }
 
+    // Delete a success story
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteSuccessStory(@PathVariable Long id) {
         try {
@@ -62,6 +66,7 @@ public class SuccessController {
         }
     }
 
+    // Update a success story (requires admin role)
     @PutMapping("")
     public ResponseEntity<?> updateSuccessStory(@AuthenticationPrincipal User user, @RequestBody SuccessStory updatedStory, @RequestParam Long storyId) {
         if (AuthorityUtil.hasRole(AuthorityEnums.ROLE_ADMIN.name(), user)) {
@@ -76,9 +81,10 @@ public class SuccessController {
         }
     }
 
+    // Enable a list of success stories (requires admin role)
     @PutMapping("/enable")
     public ResponseEntity<?> enableStories(@AuthenticationPrincipal User user, @RequestBody List<Long> storyIds) {
-        if (AuthorityUtil.hasRole(AuthorityEnums.ROLE_ADMIN.name(), user)) {
+        if (AuthorityUtil hasRole(AuthorityEnums.ROLE_ADMIN.name(), user)) {
             try {
                 List<Long> enabledIds = successService.enableIds(storyIds);
                 return ResponseEntity.ok(enabledIds);
@@ -90,6 +96,7 @@ public class SuccessController {
         }
     }
 
+    // Disable a list of success stories (requires admin role)
     @PutMapping("/disable")
     public ResponseEntity<?> disableStories(@AuthenticationPrincipal User user, @RequestBody List<Long> storyIds) {
         if (AuthorityUtil.hasRole(AuthorityEnums.ROLE_ADMIN.name(), user)) {
@@ -104,6 +111,7 @@ public class SuccessController {
         }
     }
 
+    // Search for success stories by name
     @GetMapping("/searchStories")
     public ResponseEntity<List<SuccessStory>> searchSuccessStories(
             @RequestParam("searchValue") String searchValue) {
@@ -112,5 +120,4 @@ public class SuccessController {
 
         return ResponseEntity.ok(matchingStories);
     }
-
 }

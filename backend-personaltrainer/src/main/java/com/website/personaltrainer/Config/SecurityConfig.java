@@ -33,26 +33,31 @@ public class SecurityConfig {
         this.customPasswordEncoder = customPasswordEncoder;
     }
 
-
+    // Define an AuthenticationManager as a Spring bean.
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception{
         return authConfig.getAuthenticationManager();
     }
 
+    // Define the security filter chain that configures the security settings.
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable);
-        http
-                .sessionManagement( (session) -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        http
-                .exceptionHandling( (exceptionHandling) -> exceptionHandling
-                        .authenticationEntryPoint((((request, response, authException) -> {
-                            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-                        }))));
+        // Disable CSRF (Cross-Site Request Forgery) protection.
+        http.csrf(AbstractHttpConfigurer::disable);
+
+        // Set session management to STATELESS, indicating no sessions will be used.
+        http.sessionManagement((session) -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        // Configure exception handling, specifically authentication entry point.
+        http.exceptionHandling((exceptionHandling) -> exceptionHandling
+                .authenticationEntryPoint((((request, response, authException) -> {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                })));
+
+        // Authorize requests based on different matchers.
         http = http
-                .authorizeHttpRequests( (authz) -> authz
+                .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/success-story/all/enabled").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()

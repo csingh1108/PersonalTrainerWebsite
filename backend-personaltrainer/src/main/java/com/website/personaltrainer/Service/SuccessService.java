@@ -20,25 +20,30 @@ public class SuccessService {
         this.successRepo = successRepo;
     }
 
+    // Save a new success story and mark it as disabled
     public SuccessStory save(SuccessStory successStory) {
         successStory.setEnabled(false);
         return successRepo.save(successStory);
     }
 
+    // Retrieve all success stories
     public List<SuccessStory> getAllSuccessStories() {
         List<SuccessStory> stories = successRepo.findAll();
         return stories;
     }
 
+    // Retrieve all enabled success stories
     public List<SuccessStory> getAllEnabledSuccessStories() {
         List<SuccessStory> enabledStories = successRepo.findAllByEnabled();
         return enabledStories;
     }
 
+    // Delete a success story by its ID
     public void deleteSuccessStory(Long id) {
         successRepo.deleteById(id);
     }
 
+    // Update a success story by its ID
     public SuccessStory update(SuccessStory updatedStory, Long storyId) {
         Optional<SuccessStory> storyOpt = successRepo.findById(storyId);
         if (storyOpt.isPresent()) {
@@ -53,6 +58,7 @@ public class SuccessService {
         }
     }
 
+    // Enable a list of success stories
     public List<Long> enableIds(List<Long> storyIds) {
         List<Long> updatedIds = new ArrayList<>();
 
@@ -69,6 +75,7 @@ public class SuccessService {
         return updatedIds;
     }
 
+    // Disable a list of success stories
     public List<Long> disableIds(List<Long> storyIds) {
 
         List<Long> updatedIds = new ArrayList<>();
@@ -85,7 +92,7 @@ public class SuccessService {
         return updatedIds;
     }
 
-
+    // Search success stories by name
     public List<SuccessStory> searchByName(String searchValue) {
         return successRepo.searchByName(searchValue);
     }

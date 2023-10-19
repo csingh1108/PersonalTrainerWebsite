@@ -18,11 +18,11 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+    // Load user details by username, used for authentication
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> optionalUser = userRepository.findByUsername(username);
 
         return optionalUser.orElseThrow(() -> new UsernameNotFoundException("Invalid Credentials"));
     }
-
 }

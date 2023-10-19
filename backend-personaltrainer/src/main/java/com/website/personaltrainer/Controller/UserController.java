@@ -34,11 +34,12 @@ public class UserController {
     @Autowired
     private JwtUtil jwtUtil;
 
-
+    // Create a user
     @PostMapping("/register")
     private ResponseEntity<?> createUser(@RequestBody UserDTO userDTO){
         userService.createUser(userDTO);
         try {
+            // Authenticate the user
             Authentication authenticate = authenticationManager
                     .authenticate(
                             new UsernamePasswordAuthenticationToken(
@@ -48,7 +49,9 @@ public class UserController {
 
             User user = (User) authenticate.getPrincipal();
             user.setPassword(null);
-            Long userId= user.getId();
+            Long userId = user.getId;
+
+            // Generate a JWT token and return it in the response
             return ResponseEntity.ok()
                     .header(
                             HttpHeaders.AUTHORIZATION,
@@ -60,6 +63,7 @@ public class UserController {
         }
     }
 
+    // Create a trainer (requires admin role)
     @PostMapping("/registerTrainer")
     private ResponseEntity<?> createTrainer(@AuthenticationPrincipal User loggedInUser, @RequestBody TrainerDTO userData) {
         if (AuthorityUtil.hasRole(AuthorityEnums.ROLE_ADMIN.name(), loggedInUser)) {
@@ -89,7 +93,7 @@ public class UserController {
         }
     }
 
-
+    // Get a user by ID
     @GetMapping("/{userId}")
     public ResponseEntity<User> getUserById(@PathVariable Long userId) {
         User user = userService.getUserById(userId);
@@ -101,6 +105,7 @@ public class UserController {
         }
     }
 
+    // Save user profile data
     @PutMapping("/save")
     public ResponseEntity<?> saveUserProfileData(@AuthenticationPrincipal User loggedInUser, @RequestBody User editedData) {
         try {
@@ -111,6 +116,7 @@ public class UserController {
         }
     }
 
+    // Save trainer profile data (requires admin role)
     @PutMapping("/saveTrainer")
     public ResponseEntity<?> saveTrainerProfileData(@AuthenticationPrincipal User loggedInUser,@RequestParam Long trainerId, @RequestBody User editedData){
         if (AuthorityUtil.hasRole(AuthorityEnums.ROLE_ADMIN.name(), loggedInUser)){
@@ -125,24 +131,26 @@ public class UserController {
         }
     }
 
+    // Save user goals
     @PutMapping("/savegoals/{userId}")
     public ResponseEntity<?> saveUserGoals(@AuthenticationPrincipal User loggedInUser, @PathVariable Long userId, @RequestBody Map<String, String> requestBody) {
         try {
             String editedGoals = requestBody.get("goals");
             User savedUser = userService.updateUserGoals(userId, editedGoals);
-
             return ResponseEntity.ok(savedUser);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to update user goals: " + e.getMessage());
         }
     }
 
+    // Get users assigned to a trainer
     @GetMapping("/assigned")
     public ResponseEntity<?> getUsersAssignedToTrainer(@AuthenticationPrincipal User loggedInUser){
         List<User> userList = userService.getUsersAssignedToTrainer(loggedInUser);
         return ResponseEntity.ok(userList);
     }
 
+    // Get all users (requires admin role)
     @GetMapping("/allclients")
     public ResponseEntity<?> getAllUsers(@AuthenticationPrincipal User loggedInUser){
         if (AuthorityUtil.hasRole(AuthorityEnums.ROLE_ADMIN.name(), loggedInUser)){
@@ -153,6 +161,7 @@ public class UserController {
         }
     }
 
+    // Get all trainers (requires admin role)
     @GetMapping("/alltrainers")
     public ResponseEntity<?> getAllTrainers(@AuthenticationPrincipal User loggedInUser){
         if (AuthorityUtil.hasRole(AuthorityEnums.ROLE_ADMIN.name(), loggedInUser)){
@@ -163,6 +172,7 @@ public class UserController {
         }
     }
 
+    // Search for users
     @GetMapping("/search")
     public ResponseEntity<?> searchForUsers(
             @RequestParam(name = "searchValue", required = false) String searchValue,
@@ -189,18 +199,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/searchTrainers")
-    public ResponseEntity<?> searchForUsers(
-            @RequestParam(name = "searchValue", required = false) String searchValue,
-            @AuthenticationPrincipal User user) {
-        if (AuthorityUtil.hasRole(AuthorityEnums.ROLE_ADMIN.name(), user)) {
-            List<TrainerDataWithClientNumber> adminMatchingTrainers = userService.queryBySearchParamsTrainers(searchValue);
-            return ResponseEntity.ok(adminMatchingTrainers);
-        } else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied");
-        }
-    }
-
+    // Change user status (requires admin role)
     @PostMapping("/changeEnabledStatus")
     public ResponseEntity<?> changeStatus(@AuthenticationPrincipal User loggedInUser, @RequestParam Long userId){
         if (AuthorityUtil.hasRole(AuthorityEnums.ROLE_ADMIN.name(), loggedInUser)) {
@@ -211,6 +210,7 @@ public class UserController {
         }
     }
 
+    // Get trainer details (requires admin role)
     @GetMapping("/getTrainers")
     public ResponseEntity<?> getTrainerDetails(@AuthenticationPrincipal User loggedInUser){
         if (AuthorityUtil.hasRole(AuthorityEnums.ROLE_ADMIN.name(), loggedInUser)) {
@@ -221,6 +221,7 @@ public class UserController {
         }
     }
 
+    // Assign or unassign a trainer to a user (requires admin role)
     @PostMapping("/assignTrainer")
     public ResponseEntity<?> assignTrainer(
             @AuthenticationPrincipal User user,
@@ -228,9 +229,9 @@ public class UserController {
             @RequestParam String trainerId) {
         if (AuthorityUtil.hasRole(AuthorityEnums.ROLE_ADMIN.name(), user)) {
             User updatedUser;
-            if(trainerId.equals("unassign")){
+            if (trainerId.equals("unassign")) {
                 updatedUser = userService.unassignUser(userId);
-            } else{
+            } else {
                 updatedUser = userService.assignTrainerToUser(userId, Long.valueOf(trainerId));
             }
             return ResponseEntity.ok(updatedUser);

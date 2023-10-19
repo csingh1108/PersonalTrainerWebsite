@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/api/workout")
 public class WorkoutController {
@@ -31,6 +30,7 @@ public class WorkoutController {
     @Autowired
     private UserService userService;
 
+    // Get all workout notes for a user's profile
     @GetMapping("/profile-workout-notes")
     public ResponseEntity<List<ProfileNotesDTO>> getAllWorkoutNotesDTOs(
             @AuthenticationPrincipal User user,
@@ -40,10 +40,12 @@ public class WorkoutController {
         return ResponseEntity.ok(dtos);
     }
 
+    // Get a specific workout note by its ID
     @GetMapping("")
     public ResponseEntity<WorkoutDetailDTO> getWorkoutNote(
             @AuthenticationPrincipal User user,
-            @RequestParam Long workoutId) {
+            @RequestParam Long workoutId
+    ) {
         WorkoutNotes note = workoutService.getWorkoutNote(workoutId);
 
         WorkoutDetailDTO dto = new WorkoutDetailDTO();
@@ -59,18 +61,18 @@ public class WorkoutController {
         return ResponseEntity.ok(dto);
     }
 
+    // Create a new workout note (requires admin or trainer role)
     @PostMapping("/create")
     public ResponseEntity<?> createWorkoutNote(
             @AuthenticationPrincipal User user,
-            @RequestBody CreateWorkoutDTO workoutNote) {
+            @RequestBody CreateWorkoutDTO workoutNote
+    ) {
         try {
             if (AuthorityUtil.hasRole(AuthorityEnums.ROLE_ADMIN.name(), user) ||
                     AuthorityUtil.hasRole(AuthorityEnums.ROLE_TRAINER.name(), user)) {
 
-
                 WorkoutNotes workoutNotesEntity = new WorkoutNotes();
                 workoutNotesEntity.setNotes(workoutNote.getNotes());
-
 
                 User userEntity = userService.findById(workoutNote.getUserId());
                 User trainerEntity = userService.findById(workoutNote.getTrainerId());
@@ -91,12 +93,13 @@ public class WorkoutController {
         }
     }
 
+    // Update an existing workout note (requires admin or trainer role)
     @PutMapping("/update")
     public ResponseEntity<?> updateWorkoutNotes(
             @RequestParam Long workoutId,
             @RequestParam String editedNotes,
-            @AuthenticationPrincipal User user) {
-
+            @AuthenticationPrincipal User user
+    ) {
         if (AuthorityUtil.hasRole(AuthorityEnums.ROLE_ADMIN.name(), user) ||
                 AuthorityUtil.hasRole(AuthorityEnums.ROLE_TRAINER.name(), user)) {
             try {
@@ -110,6 +113,7 @@ public class WorkoutController {
         }
     }
 
+    // Delete a workout note by its ID
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteWorkoutNote(@RequestParam Long workoutId) {
         try {
@@ -119,7 +123,4 @@ public class WorkoutController {
             return new ResponseEntity<>("An error occurred while deleting the workout note", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
 }
-
