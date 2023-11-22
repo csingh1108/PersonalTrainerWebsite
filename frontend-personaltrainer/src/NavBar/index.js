@@ -33,7 +33,8 @@ const NavBar = () => {
         })
             .then(response => {
                 if (response.ok) {
-                    user.setJwt(null)
+                    user.setJwt(null);
+                    Cookies.set('userId', null);
                     setShowLogoutAlert(true);
                     navigate('/home');
                 } else {

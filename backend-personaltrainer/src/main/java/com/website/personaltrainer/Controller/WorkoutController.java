@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -74,8 +73,8 @@ public class WorkoutController {
                 WorkoutNotes workoutNotesEntity = new WorkoutNotes();
                 workoutNotesEntity.setNotes(workoutNote.getNotes());
 
-                User userEntity = userService.findById(workoutNote.getUserId());
-                User trainerEntity = userService.findById(workoutNote.getTrainerId());
+                User userEntity = userService.getUserById(workoutNote.getUserId());
+                User trainerEntity = userService.getUserById(workoutNote.getTrainerId());
 
                 workoutNotesEntity.setUser(userEntity);
                 workoutNotesEntity.setTrainer(trainerEntity);

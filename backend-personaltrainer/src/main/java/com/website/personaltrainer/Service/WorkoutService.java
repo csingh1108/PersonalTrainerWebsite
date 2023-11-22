@@ -1,3 +1,5 @@
+package com.website.personaltrainer.Service;
+
 import com.website.personaltrainer.DTO.ProfileNotesDTO;
 import com.website.personaltrainer.Model.WorkoutNotes;
 import com.website.personaltrainer.Repository.WorkoutRepo;

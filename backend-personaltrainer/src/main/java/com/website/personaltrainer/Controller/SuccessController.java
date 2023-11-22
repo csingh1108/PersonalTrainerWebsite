@@ -84,7 +84,7 @@ public class SuccessController {
     // Enable a list of success stories (requires admin role)
     @PutMapping("/enable")
     public ResponseEntity<?> enableStories(@AuthenticationPrincipal User user, @RequestBody List<Long> storyIds) {
-        if (AuthorityUtil hasRole(AuthorityEnums.ROLE_ADMIN.name(), user)) {
+        if (AuthorityUtil.hasRole(AuthorityEnums.ROLE_ADMIN.name(), user)) {
             try {
                 List<Long> enabledIds = successService.enableIds(storyIds);
                 return ResponseEntity.ok(enabledIds);

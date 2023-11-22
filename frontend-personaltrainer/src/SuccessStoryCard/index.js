@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Card from 'react-bootstrap/Card';
 import { Badge, Button, Form, InputGroup } from 'react-bootstrap';
 import backendService from "../Services/BackendService";
 import {useJwt} from "../UserGlobalProvider";
+import jwtDecode from "jwt-decode";
 
 const SuccessStoryCard = ({ name, month, year, customerImage, successStory, className, authority, enabled, id, style }) => {
     const user =useJwt()
+    const [authorities, setAuthorities] = useState("");
+
     const [isEditing, setIsEditing] = useState(false);
     const [editedName, setEditedName] = useState(name);
     const [editedMonth, setEditedMonth] = useState(month);
     const [editedYear, setEditedYear] = useState(year);
     const [editedStory, setEditedStory] = useState(successStory);
+    const [role, setRole] = useState(null);
+
+    useEffect(() => {
+        if (user && user.jwt) {
+            const decodedJwt = jwtDecode(user.jwt);
+            setAuthorities(decodedJwt.authorities);
+        }
+    }, [user, user.jwt]);
 
     const handleEditClick = () => {
         setIsEditing(true);
@@ -58,11 +69,14 @@ const SuccessStoryCard = ({ name, month, year, customerImage, successStory, clas
                 </div>
                 <div className="story-container">
                     <Card.Body>
-                        {enabled ? (
-                            <Badge bg="success">Enabled</Badge>
-                        ) : (
-                            <Badge bg="danger">Disabled</Badge>
+                        {authorities.includes('ROLE_ADMIN') && (
+                            enabled ? (
+                                <Badge bg="success">Enabled</Badge>
+                            ) : (
+                                <Badge bg="danger">Disabled</Badge>
+                            )
                         )}
+
                         {isEditing ? (
                             <Form.Group>
                                 <Form.Control

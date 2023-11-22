@@ -44,7 +44,7 @@ const Contact = () => {
                 <NavBar />
                 <h1 style={{textAlign:"center"}} className="mt-5">Contact Us</h1>
                 <Form className="mx-auto" style={{ maxWidth: "400px" }}>
-                    <Form.Group controlId="formName">
+                    <Form.Group controlId="formName" className="mt-4">
                         <Form.Label>Name</Form.Label>
                         <Form.Control
                             type="text"
@@ -57,7 +57,7 @@ const Contact = () => {
 
                     </Form.Group>
 
-                    <Form.Group controlId="formEmail">
+                    <Form.Group controlId="formEmail" className="mt-3">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control
                             type="email"
@@ -70,7 +70,7 @@ const Contact = () => {
 
                     </Form.Group>
 
-                    <Form.Group controlId="formSubject">
+                    <Form.Group controlId="formSubject" className="mt-3">
                         <Form.Label>Subject</Form.Label>
                         <Form.Control
                             type="text"
@@ -83,7 +83,7 @@ const Contact = () => {
 
                     </Form.Group>
 
-                    <Form.Group controlId="formMessage">
+                    <Form.Group controlId="formMessage" className="mt-3">
                         <Form.Label>Message</Form.Label>
                         <Form.Control
                             as="textarea"

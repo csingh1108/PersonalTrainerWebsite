@@ -53,7 +53,7 @@ public class SecurityConfig {
         http.exceptionHandling((exceptionHandling) -> exceptionHandling
                 .authenticationEntryPoint((((request, response, authException) -> {
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-                })));
+                }))));
 
         // Authorize requests based on different matchers.
         http = http

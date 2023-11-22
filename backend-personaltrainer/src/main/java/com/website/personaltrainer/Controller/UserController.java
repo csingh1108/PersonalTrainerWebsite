@@ -49,7 +49,7 @@ public class UserController {
 
             User user = (User) authenticate.getPrincipal();
             user.setPassword(null);
-            Long userId = user.getId;
+            Long userId = user.getId();
 
             // Generate a JWT token and return it in the response
             return ResponseEntity.ok()
